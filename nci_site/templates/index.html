@@ -7,29 +7,60 @@
 	Remove this if you use the .htaccess -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>HTML</title>
 	<meta name="description" content="" />
 	<meta name="author" content="George Dietz" />
-
 	<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+	<title>HTML</title>
 
-	<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-	<link rel="shortcut icon" href="/favicon.ico" />
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+	
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+ 	<script>
+	$(function() {
+		$( "#from" ).datepicker({
+			defaultDate: "-1m",
+			changeMonth: true,
+			numberOfMonths: 3,
+			onClose: function( selectedDate ) {
+				$( "#to" ).datepicker( "option", "minDate", selectedDate );
+			}
+		});
+		$("#from").datepicker("setDate", "-1m");
+	
+		$( "#to" ).datepicker({
+			defaultDate: "+0",
+			changeMonth: true,
+			numberOfMonths: 3,
+			onClose: function( selectedDate ) {
+				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
+			}
+		});
+		$("#to").datepicker("setDate", "+0");
+	});
+	
+	$(document).ready(function() {
+		$("go_btn").click(function(event) {
+			var from_date = $('#to').datepicker("getDate");
+			var to_date = $('#from').datepicker("getDate");
+			
+		});
+	});
+ 	</script>
 </head>
 
 <body>
 <header>
-	<h1>HTML</h1>
+	<h1>NCI</h1>
 </header>
-<nav>
-	<p>
-		<a href="/">Home</a>
-	</p>
-	<p>
-		<a href="/contact">Contact</a>
-	</p>
-</nav>
+
+<h3>Please Select a date range:</h3>
+
+<label for="from">From</label>
+<input type="text" id="from" name="from" />
+<label for="to">to</label>
+<input type="text" id="to" name="to" />
+<input type="button" id="go_btn" name="go" value="go"/>
 
 <table id="table_id">
     <thead>
