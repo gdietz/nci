@@ -4,6 +4,7 @@ import pdb
 import sklearn
 import NCI_learn
 
+
 ''' change me '''
 path_to_abstract_vectorizer = "output/915/abstracts_vectorizer.pickle"
 path_to_keyword_vectorizer = "output/915/keywords_vectorizer.pickle"

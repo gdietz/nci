@@ -5,20 +5,25 @@
 # Author: George Dietz
 #
 # Make sure to rerun relearn() if you get an ImportError vis a visa self.committee and NCI_learn
-#
+
 ###############################################
 
 from Bio import Entrez, Medline
 from NCI import NCI_learn
 from NCI import NCI_predict
 
-
 Entrez.email = "george_dietz@brown.edu"
 DEFAULT_SEARCH_STRING = '((((((cancer OR neoplasm)) OR cancer[MeSH Terms]) OR neoplasm[MeSH Terms])) AND (lung OR colon OR rectal OR colorectal OR bladder OR breast OR melanoma)) AND ((predictive OR prognostic OR prediction OR prognosis OR prognostication)) AND ((models OR models OR modeling OR modelling OR instrument OR instruments OR tool OR tools OR nomogram) AND (treatment OR treatment[MeSH terms] OR chemotherapy OR diet OR radiation OR surgery)) NOT ("mouse model" OR "animal model")'
-predictor = NCI_predict.NCI_predictor()
 
 def relearn():
 	NCI_learn.train_NCI_models()
+try:
+	predictor = NCI_predict.NCI_predictor() # Coment me out when re-running
+except ImportError:
+	relearn()
+	predictor = NCI_predict.NCI_predictor()
+	
+###### END OF INITIALIZATION STUFF
 
 def query_pubmed(date_range=None, relative_date=30, search_term=DEFAULT_SEARCH_STRING):
 	records = get_records(date_range=date_range, relative_date=relative_date, search_term=search_term)

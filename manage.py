@@ -2,6 +2,8 @@
 import os
 import sys
 
+import nci_site.biopython_interface
+
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "nci.settings")
 
