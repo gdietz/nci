@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,83 +11,172 @@
 
 	<meta name="description" content="" />
 	<meta name="author" content="George Dietz" />
-	<meta name="viewport" content="width=device-width; initial-scale=1.0" />
-	<title>HTML</title>
+	<!--<meta name="viewport" content="width=device-width; initial-scale=1.0" /> -->
+	<title>NCI</title>
 
-	
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
- 	<script>
-	$(function() {
-		$( "#from" ).datepicker({
-			defaultDate: "-1m",
-			changeMonth: true,
-			numberOfMonths: 3,
-			onClose: function( selectedDate ) {
-				$( "#to" ).datepicker( "option", "minDate", selectedDate );
-			}
-		});
-		$("#from").datepicker("setDate", "-1m");
-	
-		$( "#to" ).datepicker({
-			defaultDate: "+0",
-			changeMonth: true,
-			numberOfMonths: 3,
-			onClose: function( selectedDate ) {
-				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
-			}
-		});
-		$("#to").datepicker("setDate", "+0");
-	});
-	
-	$(document).ready(function() {
-		$("go_btn").click(function(event) {
-			var from_date = $('#to').datepicker("getDate");
-			var to_date = $('#from').datepicker("getDate");
-			
-		});
-	});
- 	</script>
+
+  	
+	<!-- DataTables CSS -->
+	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css" />
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+	<!-- DataTables -->
+	<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  	
+  	<!-- I should get the minified versions of these from google probably -->
+	<!--<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/smoothness/jquery-ui.css" /> -->
+	<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/pepper-grinder/jquery-ui.css" />
+  	<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+  	
+  	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  	
+  	<link rel="stylesheet" href="{% static "home.css" %}" />
+
 </head>
 
 <body>
-<header>
-	<h1>NCI</h1>
-</header>
 
-<h3>Please Select a date range:</h3>
-
+<div class="container">
+	<div class="page-header">
+        <h1>NCI</h1>
+        <p class="lead">Please select a date range and press 'Go'.</p>
+    </div>
+    
 <label for="from">From</label>
 <input type="text" id="from" name="from" />
 <label for="to">to</label>
 <input type="text" id="to" name="to" />
-<input type="button" id="go_btn" name="go" value="go"/>
+<button id="go_btn">Go</button>
 
-<table id="table_id">
+<table id="main_table">
     <thead>
         <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            <th>etc</th>
+            <th>PMID</th>
+            <th>Title</th>
         </tr>
     </thead>
     <tbody>
+        
+        
         <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-            <td>etc</td>
-        </tr>
-        <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
-            <td>etc</td>
-        </tr>
+        	<td>Let me see your identification.</td>
+			<td>You don't need to see his identification.</td>
+		</tr>
+		<tr>
+			<td>We don't need to see his identification.</td>
+			<td>These aren't the droids you're looking for.</td>
+		</tr>
+		<tr>
+			<td>These aren't the droids we're looking for.</td>
+			<td>He can go about his business.</td>
+		</tr>
+		<tr>
+			<td>You can go about your business.</td>
+			<td>Move along.</td>
+		</tr>
+		<tr>
+			<td>Move along... move along.</td>
+			<td>&nbsp;</td>
+		</tr>
+
+
+        
+        
+        
+        
     </tbody>
 </table>
+    
+    
+    
+    
+    
+    
+    
+    
+</div> <!-- /.container -->
+
+
+
+
 
 <footer>
 	<p> &copy; Copyright  by George Dietz </p>
 </footer>
+
+<div class="modal"></div>
+
+
+
+ 	<script>
+	$(document).ready(function() {
+		$( "#from" ).datepicker({
+			defaultDate: "-1m",
+			changeMonth: true,
+			changeYear: true,
+			numberOfMonths: 1,
+			onClose: function( selectedDate ) {
+				$( "#to" ).datepicker( "option", "minDate", selectedDate );
+			}
+		}).datepicker("setDate", "-1m");
+	
+		$( "#to" ).datepicker({
+			defaultDate: "+0",
+			changeMonth: true,
+			changeYear: true,
+			numberOfMonths: 1,
+			onClose: function( selectedDate ) {
+				$( "#from" ).datepicker( "option", "maxDate", selectedDate );
+			}
+		}).datepicker("setDate", "+0");
+		
+
+		
+		var main_table = $('#main_table').dataTable();
+		go_handler();
+	
+		/* start of btn handling function */
+		$( "#go_btn" ).click(go_handler); /* end of btn handling function */
+		
+		
+		function go_handler() {
+			var from_date = $('#from').datepicker("getDate");
+			var to_date = $('#to').datepicker("getDate");
+			
+			from_date = $.datepicker.formatDate("yymmdd", from_date);
+			to_date = $.datepicker.formatDate("yymmdd", to_date);
+			
+			var toload = '/'+from_date+'/'+to_date+'/';
+    		
+    		var json_data;
+    		$('body').addClass("loading");
+			$.getJSON(toload,function(json){
+			    json_data = json;
+			    main_table.fnClearTable();
+				main_table.fnAddData(json_data.aaData);
+				main_table.fnAdjustColumnSizing();
+				$('body').removeClass("loading");
+			    //checkDrink();                
+			});
+			
+			//function checkDrink() {
+			//    console.log(json_data);
+			//}  
+		}
+		
+		
+		
+	}); // end of $(document).ready()
+	
+	
+
+ 	</script>
+
 </body>
 </html>

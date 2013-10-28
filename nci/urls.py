@@ -18,5 +18,6 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     
     url(r'^$', views.index, name="index"),
-    url(r'^/(?P<from_date>\d{8})/(?P<to_date>\d{8})/$', 'news.views.article_detail'),
+    url(r'^(?P<from_date>\d{8})/(?P<to_date>\d{8})/$', views.get_data),
+    #url(r'^20110901/20120901/', views.get_data),
 )

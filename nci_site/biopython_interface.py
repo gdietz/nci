@@ -26,8 +26,11 @@ except ImportError:
 ###### END OF INITIALIZATION STUFF
 
 def query_pubmed(date_range=None, relative_date=30, search_term=DEFAULT_SEARCH_STRING):
+	
+	
 	records = get_records(date_range=date_range, relative_date=relative_date, search_term=search_term)
 	parsed_records = [parse_record(record) for record in records]
+	#import pdb; pdb.set_trace()
 	relevant_records = [record for record in parsed_records if predictor.predict(record['title'], record['abstract'], record['keywords'])]
 	return relevant_records
 
@@ -65,7 +68,7 @@ def parse_record(record):
 	parsed_record = {}
 	parsed_record['title'] = get_record_value(record, 'TI')
 	parsed_record['abstract'] = get_record_value(record, 'AB')
-	parsed_record['keywords'] = get_record_value(record, 'MH') # Actually MeSH terms (!)
+	parsed_record['keywords'] = ', '.join(get_record_value(record, 'MH')) # Actually MeSH terms (!)
 
 	parsed_record['pubdate']  = get_record_value(record, 'DP')
 	parsed_record['pmid']     = get_record_value(record, 'PMID')
