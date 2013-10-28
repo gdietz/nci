@@ -57,7 +57,9 @@
 <table id="main_table">
     <thead>
         <tr>
+        	<th>Pub. Date</th>
             <th>PMID</th>
+            <th>First Author</th>
             <th>Title</th>
         </tr>
     </thead>
@@ -67,21 +69,31 @@
         <tr>
         	<td>Let me see your identification.</td>
 			<td>You don't need to see his identification.</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>We don't need to see his identification.</td>
 			<td>These aren't the droids you're looking for.</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>These aren't the droids we're looking for.</td>
 			<td>He can go about his business.</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>You can go about your business.</td>
 			<td>Move along.</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 		</tr>
 		<tr>
 			<td>Move along... move along.</td>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 		</tr>
 
@@ -106,9 +118,6 @@
 
 
 
-<footer>
-	<p> &copy; Copyright  by George Dietz </p>
-</footer>
 
 <div class="modal"></div>
 
@@ -138,7 +147,15 @@
 		
 
 		
-		var main_table = $('#main_table').dataTable({"aaSorting": []
+		var main_table = $('#main_table').dataTable( {
+			"aaSorting": [],
+			"aoColumns": [
+			{ "sWidth": "11em"},
+			null,
+			null,
+			null,
+			],
+			"iDisplayLength": 25,
 		} );
 		go_handler();
 	
@@ -161,8 +178,9 @@
 			    json_data = json;
 			    main_table.fnClearTable();
 				main_table.fnAddData(json_data.aaData);
-				main_table.fnAdjustColumnSizing();
+				
 				$('body').removeClass("loading");
+				main_table.fnAdjustColumnSizing();
 			    //checkDrink();                
 			});
 			

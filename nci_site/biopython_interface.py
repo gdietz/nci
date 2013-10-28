@@ -26,14 +26,29 @@ except ImportError:
 ###### END OF INITIALIZATION STUFF
 
 def query_pubmed(date_range=None, relative_date=30, search_term=DEFAULT_SEARCH_STRING):
-	
-	
 	records = get_records(date_range=date_range, relative_date=relative_date, search_term=search_term)
 	parsed_records = [parse_record(record) for record in records]
-	#import pdb; pdb.set_trace()
 	relevant_records = [record for record in parsed_records if predictor.predict(record['title'], record['abstract'], record['keywords'])]
+	relevant_records = apply_filters(relevant_records)
 	return relevant_records
 
+def filter_out_other_authors(relevant_records):	
+	for record in relevant_records:
+		if len(record['author']) > 1:
+			record['author']=record['author'][0]
+	return relevant_records
+
+def limit_title_length(relevant_records, max_length=80):
+	for record in relevant_records:
+		if len(record['title']) > max_length:
+			record['title']=record['title'][0:(max_length-3)]+"..."
+	return relevant_records
+
+def apply_filters(relevant_records):
+	filter_out_other_authors(relevant_records)
+	limit_title_length(relevant_records, max_length=100)
+	return relevant_records
+	
 
 def get_records(date_range=None, relative_date=30, search_term=DEFAULT_SEARCH_STRING, retmax=100000):
 	''' Yield recods for requested pubmed records '''
@@ -70,6 +85,7 @@ def parse_record(record):
 	parsed_record['abstract'] = get_record_value(record, 'AB')
 	parsed_record['keywords'] = ', '.join(get_record_value(record, 'MH')) # Actually MeSH terms (!)
 
+	parsed_record['author']   = get_record_value(record, 'AU')
 	parsed_record['pubdate']  = get_record_value(record, 'DP')
 	parsed_record['pmid']     = get_record_value(record, 'PMID')
 	return parsed_record
