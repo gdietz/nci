@@ -12,7 +12,8 @@ from Bio import Entrez, Medline
 from NCI import NCI_learn
 from NCI import NCI_predict
 
-Entrez.email = "george_dietz@brown.edu"
+#Entrez.email = "george_dietz@brown.edu"
+Entrez.email = "byron_wallace@brown.edu" # let pubmed bother byron if there is too much activity
 DEFAULT_SEARCH_STRING = '((((((cancer OR neoplasm)) OR cancer[MeSH Terms]) OR neoplasm[MeSH Terms])) AND (lung OR colon OR rectal OR colorectal OR bladder OR breast OR melanoma)) AND ((predictive OR prognostic OR prediction OR prognosis OR prognostication)) AND ((models OR models OR modeling OR modelling OR instrument OR instruments OR tool OR tools OR nomogram) AND (treatment OR treatment[MeSH terms] OR chemotherapy OR diet OR radiation OR surgery)) NOT ("mouse model" OR "animal model")'
 
 def relearn():
