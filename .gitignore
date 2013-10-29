@@ -3,4 +3,6 @@
 nci_site/NCI/915/
 915.zip
 nci_site/NCI/output
+.project
+.pydevproject
 

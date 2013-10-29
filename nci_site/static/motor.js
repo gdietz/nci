@@ -37,7 +37,7 @@ $(document).ready(function() {
 		],
 		"iDisplayLength": 10,
 	} );
-	//go_handler();
+	go_handler();
 
 	/* start of btn handling function */
 	$( "#go_btn" ).click(go_handler); /* end of btn handling function */
