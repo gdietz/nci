@@ -1,4 +1,4 @@
-import os
+import os, inspect
 import pdb
 import pickle
 import random
@@ -10,11 +10,14 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.datasets import load_svmlight_file
 import pdb
 
-base_p = "/Users/george/git/nci/nci_site/NCI/915/"
+# Handle paths
+import importme
+NCI_DIR = os.path.dirname(inspect.getfile(importme))       #NCI_package direcory  #NCI_DIR = "/Users/george/git/nci/nci_site/NCI"
+base_p = os.path.join(NCI_DIR,"915")                       #base_p = "/Users/george/git/nci/nci_site/NCI/915/"
 abstracts_path = os.path.join(base_p, "abstract/Cleaned/")
 keywords_path = os.path.join(base_p, "keywords/")
 titles_path = os.path.join(base_p, "title/Cleaned/")
-outpath = "/Users/george/git/nci/nci_site/NCI/output/915"
+outpath = os.path.join(NCI_DIR, "output","915")            #outpath = "/Users/george/git/nci/nci_site/NCI/output/915"
 
 class Ensemble:
 
