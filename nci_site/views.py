@@ -57,7 +57,7 @@ def export_pmids(request):
             if item == "&nbsp;":
                 data[i][j]=''
                 
-    # just pmids
+    # extract just pmids
     pmid_rows = [[row[1]] for row in data]
         
     
