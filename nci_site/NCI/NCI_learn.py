@@ -19,6 +19,10 @@ keywords_path = os.path.join(base_p, "keywords/")
 titles_path = os.path.join(base_p, "title/Cleaned/")
 outpath = os.path.join(NCI_DIR, "output","915")            #outpath = "/Users/george/git/nci/nci_site/NCI/output/915"
 
+import os, os.path
+if not os.path.exists(outpath):
+    os.makedirs(outpath)
+
 class Ensemble:
 
     def __init__(self, abstract_m, titles_m, keywords_m):

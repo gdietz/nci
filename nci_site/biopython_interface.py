@@ -20,8 +20,11 @@ def relearn():
 	NCI_learn.train_NCI_models()
 try:
 	predictor = NCI_predict.NCI_predictor() # Coment me out when re-running
-except ImportError:
+except (ImportError,IOError) as e:
+	print("Error is: %s" % str(e))
 	relearn()
+	print("Relearning done")
+	
 	predictor = NCI_predict.NCI_predictor()
 	
 ###### END OF INITIALIZATION STUFF
