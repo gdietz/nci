@@ -1,7 +1,13 @@
 # Django settings for nci project.
 
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+
+# Uncomment in production
+#DEBUG = False
+#TEMPLATE_DEBUG = False
+
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),

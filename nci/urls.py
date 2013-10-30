@@ -17,7 +17,5 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^$', views.index, name="index"),
-    url(r'^(?P<from_date>\d{8})/(?P<to_date>\d{8})/$', views.get_data),
-    url(r'^export/$', views.export_pmids),
+    url(r'^', include('nci_site.urls')),
 )
