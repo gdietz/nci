@@ -8,4 +8,5 @@ copy settings_dev.py on to settings.py
 from settings_dev import *
 
 DEBUG = TEMPLATE_DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['predictivemodels.cebm.brown.edu']
+
