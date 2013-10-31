@@ -4,6 +4,7 @@ from django.shortcuts import render
 import json
 import urlparse
 import csv
+import re
 
 from biopython_interface import query_pubmed
 
@@ -59,7 +60,11 @@ def export_pmids(request):
                 
     # extract just pmids
     pmid_rows = [[row[1]] for row in data]
-        
+    
+    # get rid of link html tag stuff
+    
+    get_value = lambda str_w_tag: re.match(r"<a.*>(.*?)</a>",str_w_tag).group(1)
+    pmid_rows = [[get_value(pmid[0])] for pmid in pmid_rows]
     
     print("format")
     print(fmt)
