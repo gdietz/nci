@@ -67,14 +67,27 @@ def get_records(date_range=None, relative_date=30, search_term=DEFAULT_SEARCH_ST
 	# http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch
 	# for more info
 	if date_range:
-		handle = Entrez.esearch(db="pubmed", term=search_term, retmax=retmax,
-								mindate=date_range[0], maxdate=date_range[1])
+		handle = Entrez.esearch(
+			db="pubmed",
+			term=search_term,
+			retmax=retmax,
+			datetype='pdat',
+			mindate=date_range[0],
+			maxdate=date_range[1],
+		)
 	else:
-		handle = Entrez.esearch(db="pubmed", term=search_term, retmax=retmax,
-								reldate=relative_date)
+		handle = Entrez.esearch(
+			db="pubmed",
+			term=search_term,
+			retmax=retmax,
+			datetype='pdat',
+			reldate=relative_date,
+		)
 
 	esearch_record = Entrez.read(handle)
 	idlist = esearch_record["IdList"]
+	# print "Id list length: %d" % len(idlist)
+	# print idlist
 	handle = Entrez.efetch(db="pubmed", id=idlist, rettype="medline", retmode="text")
 	records = Medline.parse(handle)
 	return list(records)
