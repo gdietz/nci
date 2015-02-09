@@ -6,4 +6,5 @@ nci_site/NCI/output
 .project
 .pydevproject
 __MACOSX
+.DS_Store
 

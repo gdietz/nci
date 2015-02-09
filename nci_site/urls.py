@@ -16,5 +16,5 @@ from nci_site import views
 urlpatterns = patterns('',
     url(r'^$', views.index, name="index"),
     url(r'^(?P<from_date>\d{8})/(?P<to_date>\d{8})/$', views.get_data),
-    url(r'^export/$', views.export_pmids),
+    #url(r'^export/$', views.export_pmids),
 )

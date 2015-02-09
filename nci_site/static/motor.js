@@ -55,44 +55,50 @@ $(document).ready(function() {
 		var json_data;
 		$('body').addClass("loading");
 		$.getJSON(urltoload,function(json){
-		    json_data = json;
-		    main_table.fnClearTable();
+			json_data = json;
+			main_table.fnClearTable();
 			main_table.fnAddData(json_data.aaData);
-			
 
-			
-			
 			$('body').removeClass("loading");
-			main_table.fnAdjustColumnSizing();
-		    //checkDrink();                
+			main_table.fnAdjustColumnSizing();              
 		});
-		
-		//function checkDrink() {
-		//    console.log(json_data);
-		//}  
 	}
 	
 	
 	$('#export_csv').click(function (event) {
-		export_url = 'export/?' + get_export_parameters("csv",main_table);
-		$(this).attr('href',export_url);
+		var csv = get_csv(main_table);
+		var csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);
+
+		$(this)
+			.attr({
+			'download': 'pmids.csv',
+				'href': csvData,
+				'target': '_blank'
+		});
+
 	});
 	$('#export_txt').click(function (event) {
-		export_url = 'export/?' + get_export_parameters("txt",main_table);
-		$(this).attr('href',export_url);
-	});
-	$('#export_xlsx').click(function (event) {
-		export_url = 'export/?' + get_export_parameters("xlsx",main_table);
-		$(this).attr('href',export_url);
+		var csv = get_csv(main_table);
+		var csvData = 'data:application/plain;charset=utf-8,' + encodeURIComponent(csv);
+
+		$(this)
+			.attr({
+			'download': 'pmids.txt',
+				'href': csvData,
+				'target': '_blank'
+		});
 	});
 	
-	function get_export_parameters(format, table) {
-		var params = {
-			format : format,
-			data   : table.fnGetData()
-		};
+	function get_csv(table) {
+		var data = table.fnGetData();
+
+		var pmids = data.map(function(row) {
+			return [$.parseHTML(row[1])[0].innerHTML];
+		});
+		var csv = Papa.unparse(pmids);
+
 		
-		return $.param(params)
+		return csv;
 	}
 	
 	
